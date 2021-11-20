@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_config/flutter_config.dart';
-import 'package:furniture_aggregator_app/presentation/page/map/page.dart';
+import 'package:furniture_aggregator_app/presentation/page/permissions/location_permission_page.dart';
 import 'package:furniture_aggregator_app/presentation/theme/app_theme.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -26,7 +26,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Google Map View Demo',
       theme: AppTheme.theme,
-      home: const MapView(),
+      home: LocationPermissionPage(
+        onLocationShared: () {},
+      ),
     );
   }
 }
