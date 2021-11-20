@@ -7,18 +7,24 @@ import 'package:furniture_aggregator_app/presentation/widgets/gradient_button.da
 import 'package:furniture_aggregator_app/utils/permissions/location.dart';
 
 class LocationPermissionPage extends StatelessWidget {
-  final Function() _onLocationShared;
+  final Widget Function() _navigateToWidget;
 
   const LocationPermissionPage({
-    required Function() onLocationShared,
+    required Widget Function() navigateToWidget,
     Key? key,
-  })  : _onLocationShared = onLocationShared,
+  })  : _navigateToWidget = navigateToWidget,
         super(key: key);
 
-  Future<void> _checkLocationPermission() async {
+  Future<void> _checkLocationPermission(BuildContext context) async {
     final bool locationAccessible = await locationPermission();
     if (locationAccessible) {
-      _onLocationShared();
+      _navigateToWidget();
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute<void>(
+          builder: (BuildContext context) => _navigateToWidget(),
+        ),
+      );
     }
   }
 
@@ -53,7 +59,7 @@ class LocationPermissionPage extends StatelessWidget {
                   style: AppTextStyles.montserratWhiteW600NormalS16H30,
                   textAlign: TextAlign.center,
                 ),
-                onTap: _checkLocationPermission,
+                onTap: () => _checkLocationPermission(context),
               ),
             ],
           ),
