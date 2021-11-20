@@ -41,5 +41,9 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSLocationAlwaysUsageDescription</key>
+    <string>It is necessary for the app to be able to find nearby shops for user</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>It is necessary for the app to be able to find nearby shops for user</string>
 </dict>
 </plist>
