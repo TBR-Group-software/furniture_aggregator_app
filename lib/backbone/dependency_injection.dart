@@ -18,6 +18,7 @@ import 'package:furniture_aggregator_app/domain/entity/shop.dart';
 import 'package:furniture_aggregator_app/domain/service/geolocation.dart';
 import 'package:furniture_aggregator_app/domain/service/nearby_shops.dart';
 import 'package:furniture_aggregator_app/domain/usecase/nearby_shops.dart';
+import 'package:furniture_aggregator_app/presentation/bloc/nearby_shops/nearby_shops_bloc.dart';
 import 'package:get_it/get_it.dart';
 
 final GetIt sl = GetIt.instance;
@@ -43,4 +44,5 @@ void init() {
       () => RestNearbyShopsService(sl.get(), sl.get(), sl.get(), sl.get()));
   sl.registerLazySingleton<NearbyShopsUseCase>(
       () => RestNearbyShopsUseCase(sl.get()));
+  sl.registerLazySingleton<NearbyShopsBloc>(() => NearbyShopsBloc(sl.get()));
 }
