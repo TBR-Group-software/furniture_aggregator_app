@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:furniture_aggregator_app/presentation/theme/app_gradients.dart';
 import 'package:furniture_aggregator_app/presentation/theme/app_images.dart';
 import 'package:furniture_aggregator_app/presentation/theme/app_text_styles.dart';
-import 'package:furniture_aggregator_app/presentation/widgets/gradient_button.dart';
+import 'package:furniture_aggregator_app/presentation/widget/gradient_button.dart';
 import 'package:furniture_aggregator_app/utils/permissions/location.dart';
 
 class LocationPermissionPage extends StatelessWidget {

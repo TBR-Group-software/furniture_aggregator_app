@@ -13,6 +13,8 @@ dependencies:
     sdk: flutter
   flutter_config: ^2.0.0
   flutter_svg: ^0.23.0+1
+  geolocator: ^7.7.1
+  get_it: ^7.2.0
   google_maps_flutter: ^2.1.1
   permission_handler: ^8.3.0
 
