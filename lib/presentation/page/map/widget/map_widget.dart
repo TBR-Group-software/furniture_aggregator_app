@@ -1,8 +1,14 @@
+import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:furniture_aggregator_app/domain/entity/geolocation.dart';
 import 'package:furniture_aggregator_app/domain/entity/shop.dart';
+import 'package:furniture_aggregator_app/presentation/bloc/bloc_status.dart';
+import 'package:furniture_aggregator_app/presentation/bloc/geolocation/geolocation_bloc.dart';
 import 'package:furniture_aggregator_app/presentation/page/map/widget/map_marker.dart';
+import 'package:furniture_aggregator_app/presentation/page/map/widget/my_location_button.dart';
 import 'package:furniture_aggregator_app/presentation/theme/app_palette.dart';
 import 'package:furniture_aggregator_app/utils/map/marker_generator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -10,13 +16,16 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 class MapWidget extends StatefulWidget {
   final LatLng _curLocation;
   final List<Shop> _shops;
+  final GeolocationBloc _geolocationBloc;
 
   const MapWidget({
     required LatLng curLocation,
     required List<Shop> shops,
+    required GeolocationBloc geolocationBloc,
     Key? key,
   })  : _curLocation = curLocation,
         _shops = shops,
+        _geolocationBloc = geolocationBloc,
         super(key: key);
 
   @override
@@ -24,6 +33,9 @@ class MapWidget extends StatefulWidget {
 }
 
 class _MapWidgetState extends State<MapWidget> {
+  final Completer<GoogleMapController> _controller =
+      Completer<GoogleMapController>();
+
   BitmapDescriptor? _unselectedMarker;
   BitmapDescriptor? _selectedMarker;
   Shop? _selectedShop;
@@ -44,6 +56,23 @@ class _MapWidgetState extends State<MapWidget> {
     generator.generate(context);
   }
 
+  Future<void> _animateToGeolocation(Geolocation geolocation) async {
+    final GoogleMapController controller = await _controller.future;
+    controller.animateCamera(CameraUpdate.newLatLng(
+        LatLng(geolocation.latitude, geolocation.longitude)));
+  }
+
+  void _geolocationBlocListener(
+      BuildContext context, GeolocationState geolocationState) {
+    if (geolocationState.status == BlocStatus.loaded &&
+        geolocationState.geolocation != null) {
+      _animateToGeolocation(geolocationState.geolocation!);
+    }
+  }
+
+  void _animateToCurrentGeolocation() =>
+      widget._geolocationBloc.add(GetCurrentGeolocationEvent());
+
   @override
   void initState() {
     WidgetsBinding.instance
@@ -53,30 +82,51 @@ class _MapWidgetState extends State<MapWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return GoogleMap(
-      onTap: (_) => setState(() => _selectedShop = null),
-      compassEnabled: false,
-      myLocationEnabled: true,
-      myLocationButtonEnabled: true,
-      initialCameraPosition: CameraPosition(
-        target: widget._curLocation,
-        zoom: 12,
-      ),
-      markers: <Marker>{
-        if (_unselectedMarker != null && _selectedMarker != null)
-          for (final Shop shop in widget._shops)
-            Marker(
-              markerId: MarkerId(shop.id),
-              position: LatLng(
-                shop.geolocation.latitude,
-                shop.geolocation.longitude,
-              ),
-              icon: _selectedShop?.id == shop.id
-                  ? _selectedMarker!
-                  : _unselectedMarker!,
-              onTap: () => setState(() => _selectedShop = shop),
+    return BlocListener<GeolocationBloc, GeolocationState>(
+      bloc: widget._geolocationBloc,
+      listener: _geolocationBlocListener,
+      child: Stack(
+        children: <Widget>[
+          GoogleMap(
+            onTap: (_) => setState(() => _selectedShop = null),
+            onMapCreated: (GoogleMapController controller) {
+              _controller.complete(controller);
+            },
+            myLocationEnabled: true,
+            compassEnabled: false,
+            myLocationButtonEnabled: false,
+            zoomControlsEnabled: false,
+            initialCameraPosition: CameraPosition(
+              target: widget._curLocation,
+              zoom: 12,
             ),
-      },
+            markers: <Marker>{
+              if (_unselectedMarker != null && _selectedMarker != null)
+                for (final Shop shop in widget._shops)
+                  Marker(
+                    markerId: MarkerId(shop.id),
+                    position: LatLng(
+                      shop.geolocation.latitude,
+                      shop.geolocation.longitude,
+                    ),
+                    icon: _selectedShop?.id == shop.id
+                        ? _selectedMarker!
+                        : _unselectedMarker!,
+                    onTap: () => setState(() => _selectedShop = shop),
+                  ),
+            },
+          ),
+          Align(
+            alignment: Alignment.topRight,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 48, right: 15),
+              child: MyLocationButton(
+                onTap: _animateToCurrentGeolocation,
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

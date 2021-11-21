@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:furniture_aggregator_app/backbone/dependency_injection.dart'
+    as di;
 import 'package:furniture_aggregator_app/domain/entity/geolocation.dart';
 import 'package:furniture_aggregator_app/presentation/bloc/bloc_status.dart';
 import 'package:furniture_aggregator_app/presentation/bloc/geolocation/geolocation_bloc.dart';
@@ -85,6 +87,7 @@ class _MapViewState extends State<MapView> {
                                 curLocation.longitude,
                               ),
                               shops: nearbyShopsState.nearbyShops,
+                              geolocationBloc: di.sl.get(),
                             );
                           }
                           return const Center(

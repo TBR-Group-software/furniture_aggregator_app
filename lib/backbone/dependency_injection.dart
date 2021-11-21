@@ -37,7 +37,7 @@ void init() {
       () => GeolocatorGeolocationService(sl.get(), sl.get()));
   sl.registerLazySingleton<GetCurrentGeolocationUseCase>(
       () => GeolocatorGetCurrentGeolocationUseCase(sl.get()));
-  sl.registerLazySingleton<GeolocationBloc>(() => GeolocationBloc(sl.get()));
+  sl.registerFactory<GeolocationBloc>(() => GeolocationBloc(sl.get()));
 
   //Nearby shops flow
   sl.registerLazySingleton<Factory<Product, ProductDto>>(
