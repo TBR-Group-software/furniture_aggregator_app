@@ -19,6 +19,7 @@ import 'package:furniture_aggregator_app/domain/service/geolocation.dart';
 import 'package:furniture_aggregator_app/domain/service/nearby_shops.dart';
 import 'package:furniture_aggregator_app/domain/usecase/geolocation/get_current_geolocation.dart';
 import 'package:furniture_aggregator_app/domain/usecase/nearby_shops/get_nearby_shops.dart';
+import 'package:furniture_aggregator_app/presentation/bloc/geolocation/geolocation_bloc.dart';
 import 'package:furniture_aggregator_app/presentation/bloc/nearby_shops/nearby_shops_bloc.dart';
 import 'package:get_it/get_it.dart';
 
@@ -36,6 +37,7 @@ void init() {
       () => GeolocatorGeolocationService(sl.get(), sl.get()));
   sl.registerLazySingleton<GetCurrentGeolocationUseCase>(
       () => GeolocatorGetCurrentGeolocationUseCase(sl.get()));
+  sl.registerLazySingleton<GeolocationBloc>(() => GeolocationBloc(sl.get()));
 
   //Nearby shops flow
   sl.registerLazySingleton<Factory<Product, ProductDto>>(
