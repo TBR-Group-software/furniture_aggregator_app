@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:furniture_aggregator_app/domain/entity/shop.dart';
-import 'package:furniture_aggregator_app/domain/usecase/nearby_shops.dart';
+import 'package:furniture_aggregator_app/domain/usecase/nearby_shops/get_nearby_shops.dart';
 import 'package:furniture_aggregator_app/presentation/bloc/bloc_status.dart';
 import 'package:meta/meta.dart';
 
@@ -10,7 +10,7 @@ part 'nearby_shops_event.dart';
 part 'nearby_shops_state.dart';
 
 class NearbyShopsBloc extends Bloc<NearbyShopsEvent, NearbyShopsState> {
-  final NearbyShopsUseCase _nearbyShopsUseCase;
+  final GetNearbyShopsUseCase _nearbyShopsUseCase;
 
   NearbyShopsBloc(this._nearbyShopsUseCase)
       : super(NearbyShopsState(

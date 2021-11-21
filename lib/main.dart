@@ -32,7 +32,9 @@ class MyApp extends StatelessWidget {
       title: 'Google Map View Demo',
       theme: AppTheme.theme,
       home: LocationPermissionPage(
-        navigateToWidget: () => const MapView(),
+        navigateToWidget: () => MapView(
+          nearbyShopsBloc: di.sl.get(),
+        ),
       ),
     );
   }
