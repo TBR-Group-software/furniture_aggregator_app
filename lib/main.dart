@@ -34,6 +34,7 @@ class MyApp extends StatelessWidget {
       home: LocationPermissionPage(
         navigateToWidget: () => MapView(
           nearbyShopsBloc: di.sl.get(),
+          geolocationBloc: di.sl.get(),
         ),
       ),
     );

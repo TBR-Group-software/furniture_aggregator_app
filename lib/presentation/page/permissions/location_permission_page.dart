@@ -54,10 +54,12 @@ class LocationPermissionPage extends StatelessWidget {
                 width: 218,
                 gradient: AppGradients.orangeGradient,
                 borderRadius: BorderRadius.circular(8.0),
-                child: const Text(
-                  'Share my location',
-                  style: AppTextStyles.montserratWhiteW600NormalS16H30,
-                  textAlign: TextAlign.center,
+                child: const Center(
+                  child: Text(
+                    'Share my location',
+                    style: AppTextStyles.montserratWhiteW600NormalS16,
+                    textAlign: TextAlign.center,
+                  ),
                 ),
                 onTap: () => _checkLocationPermission(context),
               ),

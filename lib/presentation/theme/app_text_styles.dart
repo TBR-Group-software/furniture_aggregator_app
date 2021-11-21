@@ -12,12 +12,19 @@ mixin AppTextStyles {
     height: 1.67,
   );
 
-  static const TextStyle montserratWhiteW600NormalS16H30 = TextStyle(
+  static const TextStyle montserratWhiteW600NormalS16 = TextStyle(
     fontFamily: AppFonts.Montserrat,
     color: AppPalette.white,
-    fontWeight: FontWeight.w500,
+    fontWeight: FontWeight.w600,
     fontStyle: FontStyle.normal,
-    fontSize: 18,
-    height: 1.88,
+    fontSize: 16,
+  );
+
+  static const TextStyle montserratWhite2W700NormalS16 = TextStyle(
+    fontFamily: AppFonts.Montserrat,
+    color: AppPalette.white2,
+    fontWeight: FontWeight.w700,
+    fontStyle: FontStyle.normal,
+    fontSize: 16,
   );
 }
