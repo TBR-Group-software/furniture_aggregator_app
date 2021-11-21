@@ -32,7 +32,7 @@ class _MapWidgetState extends State<MapWidget> {
     final MarkerGenerator generator = MarkerGenerator(
       const <Widget>[
         MapMarker(color: AppPalette.red),
-        MapMarker(color: AppPalette.primary),
+        MapMarker(color: AppPalette.lightOrange),
       ],
       (List<Uint8List> images) {
         setState(() {

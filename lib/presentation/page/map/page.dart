@@ -5,6 +5,9 @@ import 'package:furniture_aggregator_app/presentation/bloc/bloc_status.dart';
 import 'package:furniture_aggregator_app/presentation/bloc/geolocation/geolocation_bloc.dart';
 import 'package:furniture_aggregator_app/presentation/bloc/nearby_shops/nearby_shops_bloc.dart';
 import 'package:furniture_aggregator_app/presentation/page/map/widget/map_widget.dart';
+import 'package:furniture_aggregator_app/presentation/theme/app_gradients.dart';
+import 'package:furniture_aggregator_app/presentation/theme/app_palette.dart';
+import 'package:furniture_aggregator_app/presentation/theme/app_text_styles.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MapView extends StatefulWidget {
@@ -34,30 +37,68 @@ class _MapViewState extends State<MapView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<GeolocationBloc, GeolocationState>(
-        bloc: widget._geolocationBloc,
-        builder: (_, GeolocationState geolocationState) {
-          return BlocBuilder<NearbyShopsBloc, NearbyShopsState>(
-            bloc: widget._nearbyShopsBloc,
-            builder: (_, NearbyShopsState nearbyShopsState) {
-              if (geolocationState.status == BlocStatus.loaded &&
-                  geolocationState.geolocation != null &&
-                  nearbyShopsState.status == BlocStatus.loaded) {
-                final Geolocation curLocation = geolocationState.geolocation!;
-                return MapWidget(
-                  curLocation: LatLng(
-                    curLocation.latitude,
-                    curLocation.longitude,
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: const BoxDecoration(
+          gradient: AppGradients.orangeTopToBottomGradient,
+        ),
+        child: Stack(
+          children: <Widget>[
+            const SafeArea(
+              child: SizedBox(
+                height: 70,
+                child: Center(
+                  child: Text(
+                    'Map View Hub',
+                    style: AppTextStyles.montserratWhiteW600NormalS22,
                   ),
-                  shops: nearbyShopsState.nearbyShops,
-                );
-              }
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            },
-          );
-        },
+                ),
+              ),
+            ),
+            Padding(
+              padding:
+                  EdgeInsets.only(top: 70 + MediaQuery.of(context).padding.top),
+              child: ClipRRect(
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  topRight: Radius.circular(20),
+                ),
+                child: Container(
+                  width: double.infinity,
+                  height: double.infinity,
+                  color: AppPalette.white,
+                  child: BlocBuilder<GeolocationBloc, GeolocationState>(
+                    bloc: widget._geolocationBloc,
+                    builder: (_, GeolocationState geolocationState) {
+                      return BlocBuilder<NearbyShopsBloc, NearbyShopsState>(
+                        bloc: widget._nearbyShopsBloc,
+                        builder: (_, NearbyShopsState nearbyShopsState) {
+                          if (geolocationState.status == BlocStatus.loaded &&
+                              geolocationState.geolocation != null &&
+                              nearbyShopsState.status == BlocStatus.loaded) {
+                            final Geolocation curLocation =
+                                geolocationState.geolocation!;
+                            return MapWidget(
+                              curLocation: LatLng(
+                                curLocation.latitude,
+                                curLocation.longitude,
+                              ),
+                              shops: nearbyShopsState.nearbyShops,
+                            );
+                          }
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        },
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

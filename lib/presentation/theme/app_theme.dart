@@ -6,7 +6,7 @@ mixin AppTheme {
   static final ThemeData theme = ThemeData(
     fontFamily: AppFonts.Montserrat,
     primarySwatch: Colors.orange,
-    primaryColor: AppPalette.primary,
+    primaryColor: AppPalette.lightOrange,
     scaffoldBackgroundColor: AppPalette.white,
   );
 }

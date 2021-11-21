@@ -27,4 +27,12 @@ mixin AppTextStyles {
     fontStyle: FontStyle.normal,
     fontSize: 16,
   );
+
+  static const TextStyle montserratWhiteW600NormalS22 = TextStyle(
+    fontFamily: AppFonts.Montserrat,
+    color: AppPalette.white,
+    fontWeight: FontWeight.w600,
+    fontStyle: FontStyle.normal,
+    fontSize: 22,
+  );
 }

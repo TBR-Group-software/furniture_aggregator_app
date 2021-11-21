@@ -52,7 +52,7 @@ class LocationPermissionPage extends StatelessWidget {
               GradientButton(
                 height: 48,
                 width: 218,
-                gradient: AppGradients.orangeGradient,
+                gradient: AppGradients.orangeLeftToRightGradient,
                 borderRadius: BorderRadius.circular(8.0),
                 child: const Center(
                   child: Text(
