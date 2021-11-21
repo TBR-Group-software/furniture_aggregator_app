@@ -22,12 +22,13 @@ class MockNearbyShopsGateWay implements NearbyShopsGateWay {
   Future<List<ShopDto>> getNearbyShops(GeolocationDto geolocationDto) async {
     await Future<void>.delayed(const Duration(milliseconds: 500));
     final List<ShopDto> shops = <ShopDto>[
-      for (final GeolocationDto location in _geolocationSalt)
+      for (int i = 0; i < _geolocationSalt.length; i++)
         ShopDto(
+          id: 'shop-$i',
           title: 'Joe’s  Furniture',
           geolocationDto: GeolocationDto(
-            longitude: geolocationDto.longitude + location.longitude,
-            latitude: geolocationDto.latitude + location.latitude,
+            longitude: geolocationDto.longitude + _geolocationSalt[i].longitude,
+            latitude: geolocationDto.latitude + _geolocationSalt[i].latitude,
           ),
           productsDto: <ProductDto>[
             for (int i = 0; i < 5; i++)

@@ -17,6 +17,7 @@ class ShopFromDtoFactory extends Factory<Shop, ShopDto> {
 
   @override
   Shop create(ShopDto arg) => Shop(
+        id: arg.id,
         title: arg.title,
         geolocation: _geolocationFromDotFactory.create(arg.geolocationDto),
         products: arg.productsDto
