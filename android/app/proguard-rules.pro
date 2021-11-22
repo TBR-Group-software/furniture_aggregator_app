@@ -1,0 +1,1 @@
+-keep class com.example.furniture_aggregator_app.BuildConfig { *; }
