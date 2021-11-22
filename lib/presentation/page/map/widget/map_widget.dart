@@ -116,7 +116,7 @@ class _MapWidgetState extends State<MapWidget> {
             mapToolbarEnabled: false,
             initialCameraPosition: CameraPosition(
               target: widget._curLocation,
-              zoom: 12,
+              zoom: 13,
             ),
             markers: <Marker>{
               if (_unselectedMarker != null && _selectedMarker != null)
