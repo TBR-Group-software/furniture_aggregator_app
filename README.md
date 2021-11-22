@@ -11,4 +11,5 @@ The app that helps to find furniture using Google Maps
 
 ## How to launch
 To launch the application add your Google Maps API key in the .env file instead of YOUR_GOOGLE_MAPS_API_KEY string.
+
 .env file is placed in the root directory of the project
