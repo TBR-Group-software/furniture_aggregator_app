@@ -9,6 +9,7 @@ import 'package:furniture_aggregator_app/presentation/bloc/bloc_status.dart';
 import 'package:furniture_aggregator_app/presentation/bloc/geolocation/geolocation_bloc.dart';
 import 'package:furniture_aggregator_app/presentation/page/map/widget/map_marker.dart';
 import 'package:furniture_aggregator_app/presentation/page/map/widget/my_location_button.dart';
+import 'package:furniture_aggregator_app/presentation/page/map/widget/products_bottom_sheet.dart';
 import 'package:furniture_aggregator_app/presentation/theme/app_palette.dart';
 import 'package:furniture_aggregator_app/utils/map/marker_generator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -73,6 +74,23 @@ class _MapWidgetState extends State<MapWidget> {
   void _animateToCurrentGeolocation() =>
       widget._geolocationBloc.add(GetCurrentGeolocationEvent());
 
+  void _onMarkerTap(Shop shop) {
+    setState(() => _selectedShop = shop);
+    showBottomSheet<void>(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (_) {
+        return ProductsBottomSheet(
+          shop: shop,
+        );
+      },
+    ).closed.then((_) {
+      if (_selectedShop == shop && mounted) {
+        setState(() => _selectedShop = null);
+      }
+    });
+  }
+
   @override
   void initState() {
     WidgetsBinding.instance
@@ -88,7 +106,6 @@ class _MapWidgetState extends State<MapWidget> {
       child: Stack(
         children: <Widget>[
           GoogleMap(
-            onTap: (_) => setState(() => _selectedShop = null),
             onMapCreated: (GoogleMapController controller) {
               _controller.complete(controller);
             },
@@ -96,6 +113,7 @@ class _MapWidgetState extends State<MapWidget> {
             compassEnabled: false,
             myLocationButtonEnabled: false,
             zoomControlsEnabled: false,
+            mapToolbarEnabled: false,
             initialCameraPosition: CameraPosition(
               target: widget._curLocation,
               zoom: 12,
@@ -112,7 +130,7 @@ class _MapWidgetState extends State<MapWidget> {
                     icon: _selectedShop?.id == shop.id
                         ? _selectedMarker!
                         : _unselectedMarker!,
-                    onTap: () => setState(() => _selectedShop = shop),
+                    onTap: () => _onMarkerTap(shop),
                   ),
             },
           ),

@@ -35,4 +35,52 @@ mixin AppTextStyles {
     fontStyle: FontStyle.normal,
     fontSize: 22,
   );
+
+  static const TextStyle montserratDarkW600NormalS16 = TextStyle(
+    fontFamily: AppFonts.Montserrat,
+    color: AppPalette.dark,
+    fontWeight: FontWeight.w600,
+    fontStyle: FontStyle.normal,
+    fontSize: 16,
+  );
+
+  static const TextStyle montserratGreyW600NormalS12 = TextStyle(
+    fontFamily: AppFonts.Montserrat,
+    color: AppPalette.grey,
+    fontWeight: FontWeight.w600,
+    fontStyle: FontStyle.normal,
+    fontSize: 12,
+  );
+
+  static const TextStyle montserratGreyW500NormalS12 = TextStyle(
+    fontFamily: AppFonts.Montserrat,
+    color: AppPalette.grey,
+    fontWeight: FontWeight.w500,
+    fontStyle: FontStyle.normal,
+    fontSize: 12,
+  );
+
+  static const TextStyle montserratDarkW700NormalS18 = TextStyle(
+    fontFamily: AppFonts.Montserrat,
+    color: AppPalette.dark,
+    fontWeight: FontWeight.w700,
+    fontStyle: FontStyle.normal,
+    fontSize: 18,
+  );
+
+  static const TextStyle montserratDarkW500NormalS14 = TextStyle(
+    fontFamily: AppFonts.Montserrat,
+    color: AppPalette.dark,
+    fontWeight: FontWeight.w500,
+    fontStyle: FontStyle.normal,
+    fontSize: 14,
+  );
+
+  static const TextStyle montserratDarkW500NormalS16 = TextStyle(
+    fontFamily: AppFonts.Montserrat,
+    color: AppPalette.dark,
+    fontWeight: FontWeight.w500,
+    fontStyle: FontStyle.normal,
+    fontSize: 16,
+  );
 }
