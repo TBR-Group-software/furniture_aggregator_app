@@ -5,17 +5,17 @@ import 'package:furniture_aggregator_app/data/model/shop.dart';
 
 class MockNearbyShopsGateWay implements NearbyShopsGateWay {
   static final List<GeolocationDto> _geolocationSalt = <GeolocationDto>[
-    GeolocationDto(longitude: 0.003456, latitude: 00.000715),
-    GeolocationDto(longitude: 0.001456, latitude: 00.000015),
-    GeolocationDto(longitude: 0.002456, latitude: 00.002755),
-    GeolocationDto(longitude: 0.003056, latitude: 00.003755),
-    GeolocationDto(longitude: 0.003416, latitude: 00.006710),
-    GeolocationDto(longitude: 0.001256, latitude: 00.003712),
-    GeolocationDto(longitude: 0.002156, latitude: 00.003755),
-    GeolocationDto(longitude: 0.004456, latitude: 00.002705),
+    GeolocationDto(longitude: 0.008456, latitude: 00.006715),
+    GeolocationDto(longitude: -0.006456, latitude: 00.004015),
+    GeolocationDto(longitude: -0.011456, latitude: -00.009755),
+    GeolocationDto(longitude: 0.030056, latitude: -00.012755),
+    GeolocationDto(longitude: 0.020416, latitude: 00.008710),
+    GeolocationDto(longitude: -0.009256, latitude: 00.003712),
+    GeolocationDto(longitude: -0.002156, latitude: -00.003755),
+    GeolocationDto(longitude: 0.004456, latitude: -00.012705),
     GeolocationDto(longitude: 0.005676, latitude: 00.000015),
-    GeolocationDto(longitude: 0.007476, latitude: 00.005015),
-    GeolocationDto(longitude: 0.008456, latitude: 00.002715),
+    GeolocationDto(longitude: 0.010476, latitude: -00.005015),
+    GeolocationDto(longitude: -0.008456, latitude: 00.012715),
   ];
 
   @override
